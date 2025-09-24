@@ -2,8 +2,11 @@ import '../utils/utils.dart';
 import 'label.dart';
 
 String generateL10nDartFileContent(
-    String className, List<Label> labels, List<String> locales,
-    [bool otaEnabled = false]) {
+  String className,
+  List<Label> labels,
+  List<String> locales, [
+  bool otaEnabled = false,
+]) {
   return """
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/foundation.dart';
@@ -85,8 +88,7 @@ ${locales.map((locale) => _generateLocale(locale)).join("\n")}
     return false;
   }
 }
-"""
-      .trim();
+""".trim();
 }
 
 String _generateLocale(String locale) {
@@ -111,7 +113,7 @@ String _generateMetadataSetter() {
   return [
     '    if (!Localizely.hasMetadata()) {',
     '      Localizely.setMetadata(_metadata);',
-    '    }'
+    '    }',
   ].join('\n');
 }
 
@@ -119,6 +121,6 @@ String _generateMetadata(List<Label> labels) {
   return [
     '  static final Map<String, List<String>> _metadata = {',
     labels.map((label) => label.generateMetadata()).join(',\n'),
-    '  };'
+    '  };',
   ].join('\n');
 }
