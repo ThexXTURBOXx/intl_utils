@@ -73,7 +73,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/src/dart/ast/constant_evaluator.dart';
 
 /// A default function for the [Message.expanded] method.
-dynamic _nullTransform(msg, chunk) => chunk;
+dynamic _nullTransform(dynamic msg, dynamic chunk) => chunk;
 
 const jsonEncoder = JsonCodec();
 
@@ -92,19 +92,19 @@ abstract class Message {
   /// We find the arguments from the top-level [MainMessage] and use those to
   /// do variable substitutions. [MainMessage] overrides this to return
   /// the actual arguments.
-  get arguments => parent == null ? const [] : parent!.arguments;
+  dynamic get arguments => parent == null ? const [] : parent!.arguments;
 
   /// We find the examples from the top-level [MainMessage] and use those
   /// when writing out variables. [MainMessage] overrides this to return
   /// the actual examples.
-  get examples => parent == null ? const [] : parent!.examples;
+  dynamic get examples => parent == null ? const [] : parent!.examples;
 
   /// The name of the top-level [MainMessage].
   String get name => parent == null ? '<unnamed>' : parent!.name;
 
   static final _evaluator = ConstantEvaluator();
 
-  String? _evaluateAsString(expression) {
+  String? _evaluateAsString(dynamic expression) {
     var result = expression.accept(_evaluator);
     if (result == ConstantEvaluator.NOT_A_CONSTANT || result is! String) {
       return null;
@@ -113,7 +113,7 @@ abstract class Message {
     }
   }
 
-  Map? _evaluateAsMap(expression) {
+  Map? _evaluateAsMap(dynamic expression) {
     var result = expression.accept(_evaluator);
     if (result == ConstantEvaluator.NOT_A_CONSTANT || result is! Map) {
       return null;
@@ -316,7 +316,7 @@ abstract class Message {
     var classDeclaration = classNode(node);
     return classDeclaration == null
         ? null
-        : '${classDeclaration.name}_$outerName';
+        : '${classDeclaration.namePart.typeName}_$outerName';
   }
 
   /// Turn a value, typically read from a translation file or created out of an
@@ -384,13 +384,13 @@ abstract class ComplexMessage extends Message {
   /// and set their attributes by string names, so we override the indexing
   /// operators so that they behave like maps with respect to those attribute
   /// names.
-  operator [](String x);
+  dynamic operator [](String x);
 
   /// When we create these from strings or from AST nodes, we want to look up
   /// and set their attributes by string names, so we override the indexing
   /// operators so that they behave like maps with respect to those attribute
   /// names.
-  operator []=(String x, y);
+  void operator []=(String x, y);
 
   List<String> get attributeNames;
 
@@ -1091,7 +1091,7 @@ class Select extends SubMessage {
   // something else, in which case we convert it to a string
   // and take the portion after the period, if present.
   // This is to handle enums as select keys.
-  String _keyForm(key) {
+  String _keyForm(dynamic key) {
     return (key is SimpleStringLiteral) ? key.value : '$key'.split('.').last;
   }
 

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2.8.14 - Unreleased
 
 - Fix language overrides ([#19](https://github.com/localizely/intl_utils/issues/19))
+- Update `analyzer` dependency
 
 ## 2.8.13 - 2025-12-05
 
