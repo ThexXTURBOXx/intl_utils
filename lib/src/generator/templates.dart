@@ -10,8 +10,8 @@ String generateL10nDartFileContent(
   return """
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';${otaEnabled ? '\n${_generateLocalizelySdkImport()}' : ''}
+import 'package:material_ui/material_ui.dart';
 import 'intl/messages_all.dart';
 
 // **************************************************************************
